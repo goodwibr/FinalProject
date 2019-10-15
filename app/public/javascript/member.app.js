@@ -5,13 +5,17 @@ var memberRecordsApp = new Vue({
   },
   methods: {
     fetchMembers() {
-      //fetch('api/memberrecords/index.php')
-      fetch('dummy.php')
+      fetch('api/memberrecords/')
+      //fetch('dummy.php')
       .then(response => response.json())
       .then(json => { memberRecordsApp.members = json })
+    },
+    handleRowClick(member) {
+      memberActionApp.member = member;
     }
   }, // end methods
   created() {
+    //this.handleReset();
     this.fetchMembers();
   }
 });

@@ -17,7 +17,6 @@ and edited to fit our project-->
     <header class="app-header"><a class="app-header__logo" href="index.html">OCFR</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
 
-
     </header>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
@@ -56,33 +55,94 @@ and edited to fit our project-->
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         </ul>
       </div>
+    <div class="container">
       <div class="row">
-        <div class="col-md-6">
-          <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
-            <div class="info">
-              <h4>View Members</h4>
+        <div id="memberRecordsApp" class="col-md-9">
+          <div class="tile">
+            <h3 class="tile-title">Certificates</h3>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                    <tr>
+                      <th>Certificate Name</th>
+                      <th>Certificate Agency</th>
+                      <th>Expiration Period</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="m in members">
+                      <td>{{}}</td>
+                      <td>{{}}</td>
+                      <td>{{}}</td>
+                      <td>
+                        <a href="">
+                          <button class="btn btn-danger" type="button">Delete</button>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+              </table>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="widget-small info coloured-icon"><i class="icon fa fa-thumbs-o-up fa-3x"></i>
-            <div class="info">
-              <h4>View Certificates</h4>
+        <div class="col-md-3">
+          <div class="tile">
+            <h4 class="tile-title">Certificate Detail</h4>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="tile">
+            <h3 class="tile-title">Certificate Record</h3>
+            <div class="tile-body">
+              <form class="form-horizontal">
+                <div class="form-group row">
+                  <label class="control-label col-md-3">Certificate Name</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" placeholder="Enter first name">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="control-label col-md-3">Certificate Agency</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" placeholder="Enter last name">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="control-label col-md-3">Expiration Period</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" placeholder="Enter Radio Number">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="tile-footer">
+              <div class="row">
+                <div class="col-md-8 col-md-offset-3">
+                  <a href="members-table.html">
+                    <button class="btn btn-primary" type="button">Update</button>
+                  </a>
+                  <a href="members-table.html">
+                    <button class="btn btn-secondary" type="button">Cancel</button>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
 
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="javascript/member.app.js"></script>
     <script src="javascript/jquery-3.2.1.min.js"></script>
     <script src="javascript/popper.min.js"></script>
     <script src="javascript/bootstrap.min.js"></script>
     <script src="javascript/main.js"></script>
-    <script src="javascript/member.app.js"></script>
-
 
 
   </body>

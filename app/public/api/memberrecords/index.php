@@ -12,6 +12,8 @@ if (isset($_GET['guid'])) {
   $stmt = $db->prepare('SELECT * FROM Member');
   $stmt->execute();
 }
+
+
 $members = $stmt->fetchAll();
 // Step 3: Convert to JSON
 $json = json_encode($members, JSON_PRETTY_PRINT);

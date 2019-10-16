@@ -16,7 +16,7 @@ var memberActionApp = new Vue({
     .then( json => { memberRecordsApp.members.push(json[0]) })
     //.then( json => { waitingApp.patients = json})
     .catch( err => {
-      console.error('WORK TRIAGE ERROR:');
+      console.error('ACTION ERROR:');
       console.error(err);
     })
 

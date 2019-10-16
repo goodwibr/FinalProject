@@ -1,19 +1,19 @@
-var memberActionApp = new Vue({
-  el: '#memberActionApp',
+var certActionApp = new Vue({
+  el: '#certActionApp',
   data: {
-    member: {}
+    cert: {}
   },
   methods: {
     handleSubmit() {
-    fetch('api/memberrecords/post.php', {
+    fetch('api/certificatesrecords/post.php', {
       method:'POST',
-      body: JSON.stringify(this.member),
+      body: JSON.stringify(this.cert),
       headers: {
         "Content-Type": "application/json; charset=utf-8"
       }
     })
     .then( response => response.json() )
-    .then( json => { memberRecordsApp.members.push(json[0]) })
+    .then( json => { certRecordsApp.certs.push(json[0]) })
     //.then( json => { waitingApp.patients = json})
     .catch( err => {
       console.error('WORK TRIAGE ERROR:');
@@ -23,17 +23,11 @@ var memberActionApp = new Vue({
     this.handleReset();
   },
     handleReset() {
-      this.member = {
-        memberId: '',
-        firstName: '',
-        lastName: '',
-        dob: '',
-        address: '',
-        email: '',
-        phoneNum: '',
-        radioNumber:'',
-        startDate:'',
-        departmentPosition:''
+      this.cert = {
+        certId: '',
+        certName: '',
+        certAgency: '',
+        certExpirationPeriod: ''
       }
     }
   },

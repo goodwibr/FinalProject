@@ -27,12 +27,25 @@ var memberRecordsApp = new Vue({
       })
       this.handleReset();
     },
+    handleReset() {
+      this.recordMember = {
+        firstName: '',
+        lastName: '',
+        radioNumber:'',
+        departmentPosition:'',
+        phoneNum: '',
+        email: '',
+        address: '',
+        startDate:'',
+        dob: ''
+      }
+    },
     handleRowClick(member) {
       memberActionApp.member = member;
     }
   }, // end methods
   created() {
-    //this.handleReset();
+    this.handleReset();
     this.fetchMembers();
   }
 });

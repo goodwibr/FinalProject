@@ -60,13 +60,15 @@ and edited to fit our project-->
       </div>
     <div class="container">
       <div class="row">
-        <div id="memberRecordsApp" class="col-md-9">
+        <div id="certRecordsApp">
+        <div class="col-md-9">
           <div class="tile">
             <h3 class="tile-title">Certificates</h3>
-            <div class="table-responsive">
+            <div class="table-hover">
               <table class="table">
                 <thead>
                     <tr>
+                      <th>Certificate ID</th>
                       <th>Certificate Name</th>
                       <th>Certificate Agency</th>
                       <th>Expiration Period</th>
@@ -74,14 +76,15 @@ and edited to fit our project-->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="m in members">
-                      <td>{{}}</td>
-                      <td>{{}}</td>
-                      <td>{{}}</td>
+                    <tr v-for="c in certs" @click="handleRowClick(c)">
+                      <td>{{c.certId}}</td>
+                      <td>{{c.certName}}</td>
+                      <td>{{c.certAgency}}</td>
+                      <td>{{c.certExpirationPeriod}}</td>
                       <td>
-                        <a href="">
+
                           <button class="btn btn-danger" type="button">Delete</button>
-                        </a>
+
                       </td>
                     </tr>
                   </tbody>
@@ -89,56 +92,82 @@ and edited to fit our project-->
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-9">
           <div class="tile">
             <h4 class="tile-title">Certificate Detail</h4>
           </div>
         </div>
         <div class="col-md-9">
           <div class="tile">
-            <h3 class="tile-title">Certificate Record</h3>
-            <div class="tile-body">
-              <form class="form-horizontal">
+            <h3 class="tile-title">Add Record</h3>
+              <form class="form-horizontal" @submit.prevent="handleSubmit">
                 <div class="form-group row">
                   <label class="control-label col-md-3">Certificate Name</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" placeholder="Enter first name">
+                    <input class="form-control" type="text" placeholder="Enter Certificate name" v-model="recordCert.certName">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-3">Certificate Agency</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" placeholder="Enter last name">
+                    <input class="form-control" type="text" placeholder="Enter Agency" v-model="recordCert.certAgency">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-3">Expiration Period</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" placeholder="Enter Radio Number">
+                    <input class="form-control" type="text" placeholder="Enter Expiration Period" v-model="recordCert.certExpirationPeriod">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">Update</button>
                   </div>
                 </div>
               </form>
-            </div>
-            <div class="tile-footer">
-              <div class="row">
-                <div class="col-md-8 col-md-offset-3">
-                  <a href="members-table.html">
-                    <button class="btn btn-primary" type="button">Update</button>
-                  </a>
-                  <a href="members-table.html">
-                    <button class="btn btn-secondary" type="button">Cancel</button>
-                  </a>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
+      </div>
+      <div class="col-md-9" id="certActionApp">
+        <div class="tile">
+          <h3 class="tile-title">Update Record</h3>
+          <div class="tile-body">
+            <form class="form-horizontal" @submit.prevent="handleSubmit">
+              <div class="form-group row">
+                <label class="control-label col-md-3">Certificate Name</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="Enter Certificate name" v-model="cert.certName">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-md-3">Certificate Agency</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="Enter Agency" v-model="cert.certAgency">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-md-3">Expiration Period</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="Enter Expiration Period" v-model="cert.certExpirationPeriod">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-8">
+                  <button class="btn btn-primary" type="submit">Update</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
 
     </main>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="javascript/member.app.js"></script>
+    <script src="javascript/certs.app.js"></script>
+    <script src="javascript/certAction.app.js"></script>
     <script src="javascript/jquery-3.2.1.min.js"></script>
     <script src="javascript/popper.min.js"></script>
     <script src="javascript/bootstrap.min.js"></script>

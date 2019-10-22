@@ -2,7 +2,7 @@ var memberRecordsApp = new Vue({
   el: '#memberRecordsApp',
   data: {
     members: [],
-    recordMember: {},
+    recordMember: {}
   },
   methods: {
     fetchMembers() {
@@ -11,6 +11,7 @@ var memberRecordsApp = new Vue({
       .then(response => response.json())
       .then(json => { memberRecordsApp.members = json })
     },
+
     handleSubmit(event) {
       fetch('api/memberrecords/post.php', {
         method:'POST',
@@ -27,6 +28,34 @@ var memberRecordsApp = new Vue({
       })
       this.handleReset();
     },
+
+    /*deleteMember(memberId){
+      fetch('api/memberrecords/index.php?guid='+memberId, {
+      method:'POST',
+      body: JSON.stringify(this.member),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+    }
+  }
+)},
+    updateMember() {
+        fetch('api/memberrecords/updateMember.php', {
+          method:'POST',
+          body: JSON.stringify(this.member),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8"
+          }
+        }
+        //fetch('api/memberrecords/?guid='+memberId)
+        .then( response => response.json() )
+        .then( json => { memberRecordsApp.members.push(json[0]) })
+        .catch( err => {
+          console.error('RECORD POST ERROR:');
+          console.error(err);
+        })
+        //this.handleReset();
+      )},*/
+
     handleReset() {
       this.recordMember = {
         firstName: '',
@@ -39,11 +68,25 @@ var memberRecordsApp = new Vue({
         startDate:'',
         dob: ''
       }
+      /*this.member = {
+        firstName: '',
+        lastName: '',
+        radioNumber:'',
+        departmentPosition:'',
+        phoneNum: '',
+        email: '',
+        address: '',
+        startDate:'',
+        dob: '',
+        memberId:''
+      }*/
+
     },
     handleRowClick(member) {
-      memberActionApp.member = member;
-    }
-  }, // end methods
+      viewMemberApp.member = member;
+      }
+    },
+  // end methods
   created() {
     this.handleReset();
     this.fetchMembers();

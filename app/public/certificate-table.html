@@ -76,14 +76,14 @@ and edited to fit our project-->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="cert in certs">
+                    <tr v-for="cert in certs" @submit.prevent="deleteRow">
                       <td>{{cert.certId}}</td>
                       <td>{{cert.certName}}</td>
                       <td>{{cert.certAgency}}</td>
                       <td>{{cert.certExpirationPeriod}}</td>
                       <td>
                           <button class="btn btn-success" type="button" @click="showEditModal = true; selectCert(cert);">Edit</button>
-                          <button class="btn btn-danger" type="button">Delete</button>
+                          <button class="btn btn-danger" type="submit">Delete</button>
                       </td>
                     </tr>
                   </tbody>

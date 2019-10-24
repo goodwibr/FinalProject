@@ -91,10 +91,12 @@ and edited to fit our project-->
                       <td>{{m.phoneNum}}</td>
                       <td>{{m.email}}</td>
                       <td>
-                        <div>
-                          <button class="btn btn-danger">Delete</button>
-
-                        </div>
+                        <!-- <div> -->
+                          <form>
+                          <input type='button' value='Delete' @click='handleDelete(m.memberId)'></input>
+                          <!-- <button class="btn btn-danger">Delete</button> -->
+                        </form>
+                        <!-- </div> -->
                       </td>
                     </tr>
                   </tbody>

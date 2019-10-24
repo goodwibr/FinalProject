@@ -29,6 +29,27 @@ var memberRecordsApp = new Vue({
       this.handleReset();
     },
 
+    handleDelete(mId) {
+      fetch('api/memberrecords/delete.php', {
+        method:'POST',
+        body: JSON.stringify({"memberId":mId}),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      })
+
+        .then( function(response) {
+          memberRecordsApp.members = memberRecordsApp.members.filter(
+          function(el) {return el.memberId != mId}
+        );
+      })
+
+        .catch( err => {
+          console.error('RECORD DELETE ERROR:');
+          console.error(err);
+        });
+        this.handleReset();
+      },
     /*deleteMember(memberId){
       fetch('api/memberrecords/index.php?guid='+memberId, {
       method:'POST',

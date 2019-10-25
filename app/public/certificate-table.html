@@ -60,7 +60,7 @@ and edited to fit our project-->
       </div>
     <div class="container">
       <div class="row">
-        <div id="certRecordsApp">
+        <div id="certApp">
         <div class="col-md-9">
           <div class="tile">
             <h3 class="tile-title">Certificates</h3>
@@ -76,15 +76,14 @@ and edited to fit our project-->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="c in certs" @click="handleRowClick(c)">
-                      <td>{{c.certId}}</td>
-                      <td>{{c.certName}}</td>
-                      <td>{{c.certAgency}}</td>
-                      <td>{{c.certExpirationPeriod}}</td>
+                    <tr v-for="cert in certs" @submit.prevent="deleteRow">
+                      <td>{{cert.certId}}</td>
+                      <td>{{cert.certName}}</td>
+                      <td>{{cert.certAgency}}</td>
+                      <td>{{cert.certExpirationPeriod}}</td>
                       <td>
-
-                          <button class="btn btn-danger" type="button">Delete</button>
-
+                          <button class="btn btn-success" type="button" @click="showEditModal = true; selectCert(cert);">Edit</button>
+                          <button class="btn btn-danger" type="submit">Delete</button>
                       </td>
                     </tr>
                   </tbody>
@@ -92,7 +91,7 @@ and edited to fit our project-->
             </div>
           </div>
         </div>
-        <div class="col-md-9">
+        <!--<div class="col-md-9">
           <div class="tile">
             <h4 class="tile-title">Certificate Detail</h4>
           </div>
@@ -127,9 +126,14 @@ and edited to fit our project-->
               </form>
 
           </div>
-        </div>
+        </div>-->>
+
+        <?php include('modal.php'); ?>
+
       </div>
-      <div class="col-md-9" id="certActionApp">
+    </div>
+  </div>
+      <!--<div class="col-md-9" id="certActionApp">
         <div class="tile">
           <h3 class="tile-title">Update Record</h3>
           <div class="tile-body">
@@ -162,16 +166,20 @@ and edited to fit our project-->
         </div>
       </div>
       </div>
-    </div>
+    </div>-->
 
     </main>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="javascript/certs.app.js"></script>
-    <script src="javascript/certAction.app.js"></script>
+  <!--  <script src="javascript/certs.app.js"></script>
+    <script src="javascript/certAction.app.js"></script>-->
     <script src="javascript/jquery-3.2.1.min.js"></script>
     <script src="javascript/popper.min.js"></script>
     <script src="javascript/bootstrap.min.js"></script>
     <script src="javascript/main.js"></script>
+
+    <script src="javascript/cert.app.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
 
   </body>

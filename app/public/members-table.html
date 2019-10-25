@@ -91,19 +91,17 @@ and edited to fit our project-->
                       <td>{{m.phoneNum}}</td>
                       <td>{{m.email}}</td>
                       <td>
-                        <a href="">
-                          <button class="btn btn-danger" type="button">Delete</button>
-                        </a>
+                        <!-- <div> -->
+                          <form>
+                          <input type='button' value='Delete' @click='handleDelete(m.memberId)'></input>
+                          <!-- <button class="btn btn-danger">Delete</button> -->
+                        </form>
+                        <!-- </div> -->
                       </td>
                     </tr>
                   </tbody>
               </table>
             </div>
-          </div>
-        </div>
-        <div class="col-md-9">
-          <div class="tile">
-            <h4 class="tile-title">Member Detail</h4>
           </div>
         </div>
         <div class="col-md-9">
@@ -173,10 +171,16 @@ and edited to fit our project-->
             </div>
           </div>
 </div>
-        <div class="col-md-9" id="memberActionApp">
-        <div class="tile">
+        <div class="col-md-9">
+        <div class="tile" id="viewMemberApp">
           <h3 class="tile-title">Update Member</h3>
             <form class="form-horizontal" @submit.prevent="handleSubmit">
+              <div class="form-group row">
+                <label class="control-label col-md-3">Member ID</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="ID" v-model="member.memberId">
+                </div>
+              </div>
               <div class="form-group row">
                 <label class="control-label col-md-3">First Name</label>
                 <div class="col-md-8">
@@ -233,19 +237,30 @@ and edited to fit our project-->
               </div>
               <div class="form-group row">
                 <div class="col-md-8">
-                  <button type="submit" class="btn btn-primary">Update</button>
+                  <button class="btn btn-primary">Update</button>
                 </div>
               </div>
             </form>
         </div>
       </div>
+
+      <!--<div id="memberDetailApp" class="col-md-9">
+        <div class="tile" v-for= "d in details" >
+          <h4 class="tile-title">Member Detail</h4>
+          <span>{{d.lastName}}</span>
+          <span>{{d.certId}}</span>
+          <span>{{d.isExpired}}</span>
+        </div>
+      </div>-->
     </div>
   </div>
 </main>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="javascript/member.app.js"></script>
-    <script src="javascript/action.app.js"></script>
+    <script src="javascript/viewMember.app.js"></script>
+    <!--<script src="javascript/action.app.js"></script>-->
+    <!--<script src="javascript/member_detail.app.js"></script>-->
     <script src="javascript/jquery-3.2.1.min.js"></script>
     <script src="javascript/popper.min.js"></script>
     <script src="javascript/bootstrap.min.js"></script>

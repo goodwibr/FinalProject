@@ -9,7 +9,6 @@ $db = DbConnection::getConnection();
   );
   $stmt->execute([$_POST['memberId']]);
 
-
 // $certs = $stmt->fetchAll();
 // // Step 3: Convert to JSON
 // $json = json_encode($certs, JSON_PRETTY_PRINT);

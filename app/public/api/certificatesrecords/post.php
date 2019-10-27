@@ -1,5 +1,5 @@
 <?php
-use Ramsey\Uuid\Uuid;
+//use Ramsey\Uuid\Uuid;
 
 // Step 0: Validate data
 
@@ -7,22 +7,31 @@ use Ramsey\Uuid\Uuid;
 $db = DbConnection::getConnection();
 
 // Step 2: Prepare & run the query
+
+//if(isset($_GET['guid'])) {
+//$guid=([$_GET['guid']]);
 $stmt = $db->prepare(
-  'INSERT INTO Certificate
-    (certId, certName, certAgency, certExpirationPeriod)
-  VALUES (?,?,?,?)'
-);
+  'UPDATE Certificate
+  SET certName=?, certAgency=?, certExpirationPeriod=?
+  where certId=?');
 
-$guid = Uuid::uuid4()->toString();
-
+//}else {
+    /*$stmt = $db->prepare(
+        'INSERT INTO Member
+          (firstName, lastName, address, email, phoneNum, dob, radioNumber, departmentPosition, startDate, memberId)
+        VALUES (?,?,?,?,?,?,?,?,?,?)');
+    //$guid = Uuid::uuid4()->toString();*/
+  //}
 $stmt->execute([
-$guid, // i.e. 25769c6c-d34d-4bfe-ba98-e0ee856f3e7a
   $_POST['certName'],
   $_POST['certAgency'],
-  $_POST['certExpirationPeriod']
+  $_POST['certExpirationPeriod'],
+  $_POST['certId']
 ]);
 
+
+//echo $guid;
 // Step 4: Output
 header('HTTP/1.1 303 See Other');
-//header('Location: ../memberrecords/');
-header('Location: ../certificatesrecords/?guid='.$guid);
+//header('Location: ../memberrecords/')
+//header('Location: ../memberrecords/?guid='.$_POST['memberId'];

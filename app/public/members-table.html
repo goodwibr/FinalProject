@@ -62,12 +62,13 @@ and edited to fit our project-->
 
     <div class="row">
      <div id="memberRecordsApp">
-        <div class="col-md-9">
-          <div class="tile">
+        <div class="col-md-8" >
+          <div class="tile" style="display:inline-block;">
+            <button class="btn btn-primary" @click="openAddForm()" style="position: absolute; right: 0;margin:8px">Add Member</button>
             <h3 class="tile-title">Members</h3>
             <div  class="table-hover">
               <table class="table">
-                <thead>
+                <thead style="display:inline-block;">
                     <tr>
                       <th>Member ID</th>
                       <th>First Name</th>
@@ -80,8 +81,9 @@ and edited to fit our project-->
                       <th>Delete</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody style="display:inline-block; overflow:auto; height:300px;width:relative">
                     <tr v-for="m in members" @click="handleRowClick(m)">
+                      <!--@click="seeDetails(m)"-->
                       <td>{{m.memberId}}</td>
                       <td>{{m.firstName}}</td>
                       <td>{{m.lastName}}</td>
@@ -91,12 +93,11 @@ and edited to fit our project-->
                       <td>{{m.phoneNum}}</td>
                       <td>{{m.email}}</td>
                       <td>
-                        <!-- <div> -->
-                          <form>
-                          <input type='button' value='Delete' @click='handleDelete(m.memberId)'></input>
-                          <!-- <button class="btn btn-danger">Delete</button> -->
-                        </form>
-                        <!-- </div> -->
+                          <button class="btn btn-secondary" @click="openUpdateForm(m)">Update</button>
+                        </td>
+                        <td>
+                          <button class="btn btn-danger" @click='handleDelete(m.memberId)'>Delete</button>
+
                       </td>
                     </tr>
                   </tbody>
@@ -104,10 +105,40 @@ and edited to fit our project-->
             </div>
           </div>
         </div>
-        <div class="col-md-9">
+      </div>
+        <div id="viewDetailsApp" class="col-md-3" style="position:absolute; right: 0 ;width:relative; min-width:450px;margin-right:23px">
+          <div class="tile" style="min-height:470px;">
+            <h4 class="tile-title">Member Detail</h4>
+              <div  class="table-hover">
+                <table class="table">
+                  <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Certificate</th>
+                        <th>Agency</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="d in detail">
+                        <td>{{d.firstName}}</td>
+                        <td>{{d.lastName}}</td>
+                        <td>{{d.certName}}</td>
+                        <td>{{d.certAgency}}</td>
+                        <td>{{d.isExpired}}</td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+    </div>
+  </div>
+  <div class="row">
+        <div class="col-md-12" id="addMemberApp" style="display:none; width:absolute" @submit="handleSubmit">
           <div class="tile">
               <h3 class="tile-title">Add Member</h3>
-              <form class="form-horizontal" @submit.prevent="handleSubmit">
+              <form class="form-horizontal">
                 <div class="form-group row">
                   <label class="control-label col-md-3">First Name</label>
                   <div class="col-md-8">
@@ -164,17 +195,16 @@ and edited to fit our project-->
                 </div>
                 <div class="form-group row">
                   <div class="col-md-8">
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>  <button class="btn btn-secondary" type="button" @click="closeAddForm()">Cancel</button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
-</div>
-        <div class="col-md-9">
-        <div class="tile" id="viewMemberApp">
+        <div class="col-md-12">
+        <div class="tile" id="viewMemberApp" @submit="handleUpdate"  style="display:none">
           <h3 class="tile-title">Update Member</h3>
-            <form class="form-horizontal" @submit.prevent="handleSubmit">
+            <form class="form-horizontal">
               <div class="form-group row">
                 <label class="control-label col-md-3">Member ID</label>
                 <div class="col-md-8">
@@ -237,30 +267,23 @@ and edited to fit our project-->
               </div>
               <div class="form-group row">
                 <div class="col-md-8">
-                  <button class="btn btn-primary">Update</button>
+                  <button type="submit" class="btn btn-primary">Update</button> <button type="button" class="btn btn-secondary" @click="closeUpdateForm()">Cancel</button>
                 </div>
               </div>
             </form>
         </div>
       </div>
-
-      <!--<div id="memberDetailApp" class="col-md-9">
-        <div class="tile" v-for= "d in details" >
-          <h4 class="tile-title">Member Detail</h4>
-          <span>{{d.lastName}}</span>
-          <span>{{d.certId}}</span>
-          <span>{{d.isExpired}}</span>
-        </div>
-      </div>-->
+      </div>
     </div>
-  </div>
+
 </main>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="javascript/member.app.js"></script>
     <script src="javascript/viewMember.app.js"></script>
+    <script src="javascript/addMember.app.js"></script>
     <!--<script src="javascript/action.app.js"></script>-->
-    <!--<script src="javascript/member_detail.app.js"></script>-->
+    <script src="javascript/memberDetail.app.js"></script>
     <script src="javascript/jquery-3.2.1.min.js"></script>
     <script src="javascript/popper.min.js"></script>
     <script src="javascript/bootstrap.min.js"></script>

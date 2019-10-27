@@ -1,5 +1,5 @@
 <?php
-//use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 
 // Step 0: Validate data
 
@@ -8,20 +8,12 @@ $db = DbConnection::getConnection();
 
 // Step 2: Prepare & run the query
 
-//if(isset($_GET['guid'])) {
-//$guid=([$_GET['guid']]);
 $stmt = $db->prepare(
-  'UPDATE Member
-  SET firstName=?, lastName=?, address=?, email=?, phoneNum=?, dob=?, radioNumber=?, departmentPosition=?, startDate=?
-  where memberId=?');
+      'INSERT INTO Member
+        (firstName, lastName, address, email, phoneNum, dob, radioNumber, departmentPosition, startDate, memberId)
+      VALUES (?,?,?,?,?,?,?,?,?,?)');
+  $guid = Uuid::uuid4()->toString();
 
-//}else {
-    /*$stmt = $db->prepare(
-        'INSERT INTO Member
-          (firstName, lastName, address, email, phoneNum, dob, radioNumber, departmentPosition, startDate, memberId)
-        VALUES (?,?,?,?,?,?,?,?,?,?)');
-    //$guid = Uuid::uuid4()->toString();*/
-  //}
 $stmt->execute([
   $_POST['firstName'],
   $_POST['lastName'],
@@ -32,7 +24,7 @@ $stmt->execute([
   $_POST['radioNumber'],
   $_POST['departmentPosition'],
   $_POST['startDate'],
-  $_POST['memberId']
+  $guid
 ]);
 
 

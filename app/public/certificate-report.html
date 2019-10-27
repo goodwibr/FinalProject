@@ -58,7 +58,6 @@ and edited to fit our project-->
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         </ul>
       </div>
-
   <div class="container">
 
     <div class="row">
@@ -89,7 +88,6 @@ and edited to fit our project-->
                         </td>
                         <td>
                           <button type="button" class="btn btn-danger" @click='handleDelete(c.certId)'>Delete</button>
-
                       </td>
                     </tr>
                   </tbody>
@@ -97,7 +95,6 @@ and edited to fit our project-->
             </div>
           </div>
         </div>
-
       </div>
         <div id="viewCertDetailsApp" class="col-md-3" style="position:absolute; right: 0 ;width:relative; min-width:450px;margin-right:23px">
           <div class="tile" style="min-height:450px;">
@@ -136,28 +133,22 @@ and edited to fit our project-->
                   <label class="control-label col-md-3">Certificate Name</label>
                   <div class="col-md-8">
                     <input class="form-control" type="text" placeholder="Enter certificate name" v-model="recordCert.certName">
-
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-3">Certificate Agency</label>
                   <div class="col-md-8">
-
                     <input class="form-control" type="text" placeholder="Enter agency" v-model="recordCert.certAgency">
-
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-3">Expiration Period</label>
                   <div class="col-md-8">
-
                     <input class="form-control" type="text" placeholder="Enter expiration period" v-model="recordCert.certExpirationPeriod">
-
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-md-8">
-
                     <button type="submit" class="btn btn-primary">Add</button>  <button class="btn btn-secondary" type="button" @click="closeAddForm()">Cancel</button>
                   </div>
                 </div>
@@ -184,20 +175,16 @@ and edited to fit our project-->
                 <label class="control-label col-md-3">Agency</label>
                 <div class="col-md-8">
                   <input class="form-control" type="text" placeholder="Enter agency" v-model="cert.certAgency">
-
                 </div>
               </div>
               <div class="form-group row">
                 <label class="control-label col-md-3">Expiration Period</label>
                 <div class="col-md-8">
-
                   <input class="form-control" type="text" placeholder="Enter expiration period" v-model="cert.certExpirationPeriod">
-
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-8">
-
                   <button type="submit" class="btn btn-primary">Update</button> <button type="button" class="btn btn-secondary" @click="closeUpdateForm()">Cancel</button>
                 </div>
               </div>
@@ -215,12 +202,10 @@ and edited to fit our project-->
     <script src="javascript/addCert.app.js"></script>
     <!--<script src="javascript/action.app.js"></script>-->
     <script src="javascript/certDetail.app.js"></script>
-
     <script src="javascript/jquery-3.2.1.min.js"></script>
     <script src="javascript/popper.min.js"></script>
     <script src="javascript/bootstrap.min.js"></script>
     <script src="javascript/main.js"></script>
-
 
 
   </body>

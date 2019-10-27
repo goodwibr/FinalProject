@@ -2,34 +2,37 @@ var viewMemberApp = new Vue({
   el: '#viewMemberApp',
   data: {
     member: {},
-    memberId: 0
+    guid: {}
   },
   methods: {
+    getGuid(){
+      var params = (new URL(document.location)).searchParams;
+      this.guid = params.get("memberId");
+    },
     fetchMember() {
-    fetch('api/memberrecords/index.php?guid='+this.memberId)
+    fetch('api/memberrecords/index.php?guid='+this.guid)
     .then( response => response.json() )
-    .then( json => { viewMemberApp.member = json})
-  }
-},
+    .then( json => { this.member = json[0]})
+  },
+    handleUpdate() {
+      fetch('api/memberrecords/post.php', {
+        method:'POST',
+        body: JSON.stringify(this.member),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      })
 
-handleSubmit(event) {
-  fetch('api/memberrecords/post.php', {
-    method:'POST',
-    body: JSON.stringify(this.recordMember),
-    headers: {
-      "Content-Type": "application/json; charset=utf-8"
+    this.closeUpdateForm();
+      },
+
+    closeUpdateForm() {
+    document.getElementById('viewMemberApp').style.display ="none" ;
+      }
+    },
+    created(){
+      this.getGuid();
+      this.fetchMember();
     }
-  })
-  .then( response => response.json() )
-  .then( json => { memberRecordsApp.members.push(json[0]) })
-  .catch( err => {
-    console.error('RECORD POST ERROR:');
-    console.error(err);
-  })
-  this.handleReset();
-},
-  created() {
 
-    this.fetchMember();
-  }
 });

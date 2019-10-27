@@ -58,32 +58,36 @@ and edited to fit our project-->
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         </ul>
       </div>
-    <div class="container">
-      <div class="row">
-        <div id="certApp">
-        <div class="col-md-9">
-          <div class="tile">
+  <div class="container">
+
+    <div class="row">
+     <div id="certRecordsApp">
+        <div class="col-md-8" >
+          <div class="tile" style="display:inline-block;">
+            <button class="btn btn-primary" @click="openAddForm()" style="position: absolute; right: 0;margin:8px">Add Certificate</button>
             <h3 class="tile-title">Certificates</h3>
-            <div class="table-hover">
+            <div  class="table-hover">
               <table class="table">
-                <thead>
+                <thead style="display:inline-block;">
                     <tr>
                       <th>Certificate ID</th>
                       <th>Certificate Name</th>
-                      <th>Certificate Agency</th>
+                      <th>Agency</th>
                       <th>Expiration Period</th>
-                      <th>Delete</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr v-for="cert in certs">
-                      <td>{{cert.certId}}</td>
-                      <td>{{cert.certName}}</td>
-                      <td>{{cert.certAgency}}</td>
-                      <td>{{cert.certExpirationPeriod}}</td>
+                  <tbody style="display:inline-block; overflow:auto; height:300px;width:relative">
+                    <tr v-for="c in certs" @click="handleRowClick(c)">
+                      <!--@click="seeDetails(m)"-->
+                      <td>{{c.certId}}</td>
+                      <td>{{c.certName}}</td>
+                      <td>{{c.certAgency}}</td>
+                      <td>{{c.certExpirationPeriod}}</td>
                       <td>
-                          <button class="btn btn-success" type="button" @click="showEditModal = true; selectCert(cert);">Edit</button>
-                          <button class="btn btn-danger" type="button">Delete</button>
+                          <button class="btn btn-secondary" @click="openUpdateForm(c)">Update</button>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-danger" @click='handleDelete(c.certId)'>Delete</button>
                       </td>
                     </tr>
                   </tbody>
@@ -91,95 +95,117 @@ and edited to fit our project-->
             </div>
           </div>
         </div>
-        <!--<div class="col-md-9">
-          <div class="tile">
-            <h4 class="tile-title">Certificate Detail</h4>
+      </div>
+        <div id="viewCertDetailsApp" class="col-md-3" style="position:absolute; right: 0 ;width:relative; min-width:450px;margin-right:23px">
+          <div class="tile" style="min-height:450px;">
+            <h4 class="tile-title">Certificate Status</h4>
+              <div  class="table-hover">
+                <table class="table">
+                  <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Certificate</th>
+                        <th>Agency</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="d in detail">
+                        <td>{{d.firstName}}</td>
+                        <td>{{d.lastName}}</td>
+                        <td>{{d.certName}}</td>
+                        <td>{{d.certAgency}}</td>
+                        <td>{{d.isExpired}}</td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
           </div>
-        </div>
-        <div class="col-md-9">
+    </div>
+  </div>
+  <div class="row">
+        <div class="col-md-12" id="addCertApp" style="display:none; width:absolute" @submit="handleSubmit">
           <div class="tile">
-            <h3 class="tile-title">Add Record</h3>
-              <form class="form-horizontal" @submit.prevent="handleSubmit">
+              <h3 class="tile-title">Add Certificate</h3>
+              <form class="form-horizontal">
                 <div class="form-group row">
                   <label class="control-label col-md-3">Certificate Name</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" placeholder="Enter Certificate name" v-model="recordCert.certName">
+                    <input class="form-control" type="text" placeholder="Enter certificate name" v-model="recordCert.certName">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-3">Certificate Agency</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" placeholder="Enter Agency" v-model="recordCert.certAgency">
+                    <input class="form-control" type="text" placeholder="Enter agency" v-model="recordCert.certAgency">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-3">Expiration Period</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" placeholder="Enter Expiration Period" v-model="recordCert.certExpirationPeriod">
+                    <input class="form-control" type="text" placeholder="Enter expiration period" v-model="recordCert.certExpirationPeriod">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-md-8">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Add</button>  <button class="btn btn-secondary" type="button" @click="closeAddForm()">Cancel</button>
                   </div>
                 </div>
               </form>
-
+            </div>
           </div>
-        </div>-->>
-
-        <?php include('modal.php'); ?>
-
-      </div>
-    </div>
-  </div>
-      <!--<div class="col-md-9" id="certActionApp">
-        <div class="tile">
-          <h3 class="tile-title">Update Record</h3>
-          <div class="tile-body">
-            <form class="form-horizontal" @submit.prevent="handleSubmit">
+        <div class="col-md-12">
+        <div class="tile" id="viewCertApp" @submit="handleUpdate" style="display:none">
+          <h3 class="tile-title">Update Certificate</h3>
+            <form class="form-horizontal">
               <div class="form-group row">
-                <label class="control-label col-md-3">Certificate Name</label>
+                <label class="control-label col-md-3">Certificate ID</label>
                 <div class="col-md-8">
-                  <input class="form-control" type="text" placeholder="Enter Certificate name" v-model="cert.certName">
+                  <input class="form-control" type="text" placeholder="ID" v-model="cert.certId">
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label col-md-3">Certificate Agency</label>
+                <label class="control-label col-md-3">Certificate Name</label>
                 <div class="col-md-8">
-                  <input class="form-control" type="text" placeholder="Enter Agency" v-model="cert.certAgency">
+                  <input class="form-control" type="text" placeholder="Enter certificate name" v-model="cert.certName">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-md-3">Agency</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="Enter agency" v-model="cert.certAgency">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="control-label col-md-3">Expiration Period</label>
                 <div class="col-md-8">
-                  <input class="form-control" type="text" placeholder="Enter Expiration Period" v-model="cert.certExpirationPeriod">
+                  <input class="form-control" type="text" placeholder="Enter expiration period" v-model="cert.certExpirationPeriod">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-8">
-                  <button class="btn btn-primary" type="submit">Update</button>
+                  <button type="submit" class="btn btn-primary">Update</button> <button type="button" class="btn btn-secondary" @click="closeUpdateForm()">Cancel</button>
                 </div>
               </div>
             </form>
-          </div>
         </div>
       </div>
       </div>
-    </div>-->
+    </div>
 
-    </main>
+</main>
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <!--  <script src="javascript/certs.app.js"></script>
-    <script src="javascript/certAction.app.js"></script>-->
+    <script src="javascript/cert.app.js"></script>
+    <script src="javascript/viewCert.app.js"></script>
+    <script src="javascript/addCert.app.js"></script>
+    <!--<script src="javascript/action.app.js"></script>-->
+    <script src="javascript/certDetail.app.js"></script>
     <script src="javascript/jquery-3.2.1.min.js"></script>
     <script src="javascript/popper.min.js"></script>
     <script src="javascript/bootstrap.min.js"></script>
     <script src="javascript/main.js"></script>
-
-    <script src="javascript/cert.app.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
 
 
   </body>

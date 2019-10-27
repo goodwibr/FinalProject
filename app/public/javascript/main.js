@@ -25,3 +25,6 @@
 	$("[data-toggle='tooltip']").tooltip();
 
 })();
+(function openForm() {
+document.getElementById('addForm').style.display = 'block';
+})

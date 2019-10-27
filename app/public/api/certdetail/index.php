@@ -8,7 +8,7 @@ $guid=($_GET['guid']);
 $stmt = $db->prepare(
     'SELECT *
     FROM Member m, MemberCertificate mc, Certificate c
-    WHERE m.memberId =?
+    WHERE c.certId =?
     and m.memberId=mc.memberId
     and mc.certId = c.certId'
   );

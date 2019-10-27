@@ -1,15 +1,15 @@
-var memberRecordsApp = new Vue({
-  el: '#memberRecordsApp',
+var certRecordsApp = new Vue({
+  el: '#certRecordsApp',
   data: {
-    members: [],
-    recordMember: {}
+    certs: [],
+    recordCert: {}
   },
   methods: {
-    fetchMembers() {
-      fetch('api/memberrecords/')
+    fetchCerts() {
+      fetch('api/certificatesrecords/')
       //fetch('dummy.php')
       .then(response => response.json())
-      .then(json => { memberRecordsApp.members = json })
+      .then(json => { certRecordsApp.certs = json })
     },
 
   /*  handleSubmit(event) {
@@ -29,18 +29,18 @@ var memberRecordsApp = new Vue({
       this.handleReset();
     },*/
 
-    handleDelete(mId) {
-      fetch('api/memberrecords/delete.php', {
+    handleDelete(cId) {
+      fetch('api/certificatesrecords/delete.php', {
         method:'POST',
-        body: JSON.stringify({"memberId":mId}),
+        body: JSON.stringify({"certId":cId}),
         headers: {
           "Content-Type": "application/json; charset=utf-8"
         }
       })
 
         .then( function(response) {
-          memberRecordsApp.members = memberRecordsApp.members.filter(
-          function(el) {return el.memberId != mId}
+          certRecordsApp.certs = certRecordsApp.certs.filter(
+          function(el) {return el.certId != cId}
         );
       })
 
@@ -52,16 +52,10 @@ var memberRecordsApp = new Vue({
       },
 
     handleReset() {
-      this.recordMember = {
-        firstName: '',
-        lastName: '',
-        radioNumber:'',
-        departmentPosition:'',
-        phoneNum: '',
-        email: '',
-        address: '',
-        startDate:'',
-        dob: ''
+      this.recordCert = {
+        certName: '',
+        certAgency: '',
+        certExpirationPeriod:''
       }
       /*this.member = {
         firstName: '',
@@ -77,31 +71,31 @@ var memberRecordsApp = new Vue({
       }*/
 
     },
-    seeDetails(member){
-      viewDetailsApp.member=member;
-      viewDetailsApp.fetchDetail();
+    seeDetails(cert){
+      viewCertDetailsApp.cert=cert;
+      viewCertDetailsApp.fetchDetail();
     },
 
 
-    openAddForm(member) {
-    document.getElementById('addMemberApp').style.display = 'block';
-    addMemberApp.member=member;
+    openAddForm(cert) {
+    document.getElementById('addCertApp').style.display = 'block';
+    addCertApp.cert=cert;
     },
 
-    openUpdateForm(member) {
-    document.getElementById('viewMemberApp').style.display = 'block';
+    openUpdateForm(cert) {
+    document.getElementById('viewCertApp').style.display = 'block';
     //viewMemberApp.memberId = member.memberId;
-    viewMemberApp.member=member;
+    viewCertApp.cert=cert;
     //viewMemberApp.fetchMember();
     },
 
-    handleRowClick(member) {
-      this.seeDetails(member);
+    handleRowClick(cert) {
+      this.seeDetails(cert);
     }
     },
   // end methods
   created() {
     this.handleReset();
-    this.fetchMembers();
+    this.fetchCerts();
   }
 });

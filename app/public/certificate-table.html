@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!--html structure derived from package from
+ * Vali Admin
+ * Author: Pratik Borsadiya
+and edited to fit our project-->
+
+<html lang="en">
+  <head>
+    <title>OCFR Admin</title>
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="app sidebar-mini rtl">
+    <!-- Navbar-->
+    <header class="app-header"><a class="app-header__logo" href="index.html">OCFR</a>
+      <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+        <div>
+          <p class="app-sidebar__user-name"> Felicia Smoake</p>
+          <p class="app-sidebar__user-designation"> Coordinator</p>
+        </div>
+      </div>
+      <ul class="app-menu">
+        <li><a class="app-menu__item active" href="index.html"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Home</span></a></li>
+          <ul class="treeview-menu">
+          </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="members-table.html"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Members</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+          </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="certificate-table.html"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Certificates</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+          </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Expired Certificates</a></li>
+            <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Member Report</a></li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+    <main class="app-content">
+      <div class="app-title">
+        <div>
+          <h1><i class="fa fa-dashboard"></i> Oconee County Fire Rescue</h1>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        </ul>
+      </div>
+  <div class="container">
+
+    <div class="row">
+     <div id="certRecordsApp">
+        <div class="col-md-8" >
+          <div class="tile" style="display:inline-block;">
+            <button class="btn btn-primary" @click="openAddForm()" style="position: absolute; right: 0;margin:8px">Add Certificate</button>
+            <h3 class="tile-title">Certificates</h3>
+            <div  class="table-hover">
+              <table class="table">
+                <thead style="display:inline-block;">
+                    <tr>
+                      <th>Certificate ID</th>
+                      <th>Certificate Name</th>
+                      <th>Agency</th>
+                      <th>Expiration Period</th>
+                    </tr>
+                  </thead>
+                  <tbody style="display:inline-block; overflow:auto; height:300px;width:relative">
+                    <tr v-for="c in certs" @click="handleRowClick(c)">
+                      <!--@click="seeDetails(m)"-->
+                      <td>{{c.certId}}</td>
+                      <td>{{c.certName}}</td>
+                      <td>{{c.certAgency}}</td>
+                      <td>{{c.certExpirationPeriod}}</td>
+                      <td>
+                          <button class="btn btn-secondary" @click="openUpdateForm(c)">Update</button>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-danger" @click='handleDelete(c.certId)'>Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div id="viewCertDetailsApp" class="col-md-3" style="position:absolute; right: 0 ;width:relative; min-width:450px;margin-right:23px">
+          <div class="tile" style="min-height:450px;">
+            <h4 class="tile-title">Certificate Status</h4>
+              <div  class="table-hover">
+                <table class="table">
+                  <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Certificate</th>
+                        <th>Agency</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="d in detail">
+                        <td>{{d.firstName}}</td>
+                        <td>{{d.lastName}}</td>
+                        <td>{{d.certName}}</td>
+                        <td>{{d.certAgency}}</td>
+                        <td>{{d.isExpired}}</td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+    </div>
+  </div>
+  <div class="row">
+        <div class="col-md-12" id="addCertApp" style="display:none; width:absolute" @submit="handleSubmit">
+          <div class="tile">
+              <h3 class="tile-title">Add Certificate</h3>
+              <form class="form-horizontal">
+                <div class="form-group row">
+                  <label class="control-label col-md-3">Certificate Name</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" placeholder="Enter certificate name" v-model="recordCert.certName">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="control-label col-md-3">Certificate Agency</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" placeholder="Enter agency" v-model="recordCert.certAgency">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="control-label col-md-3">Expiration Period</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" placeholder="Enter expiration period" v-model="recordCert.certExpirationPeriod">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">Add</button>  <button class="btn btn-secondary" type="button" @click="closeAddForm()">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        <div class="col-md-12">
+        <div class="tile" id="viewCertApp" @submit="handleUpdate" style="display:none">
+          <h3 class="tile-title">Update Certificate</h3>
+            <form class="form-horizontal">
+              <div class="form-group row">
+                <label class="control-label col-md-3">Certificate ID</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="ID" v-model="cert.certId">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-md-3">Certificate Name</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="Enter certificate name" v-model="cert.certName">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-md-3">Agency</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="Enter agency" v-model="cert.certAgency">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-md-3">Expiration Period</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="Enter expiration period" v-model="cert.certExpirationPeriod">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-8">
+                  <button type="submit" class="btn btn-primary">Update</button> <button type="button" class="btn btn-secondary" @click="closeUpdateForm()">Cancel</button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      </div>
+    </div>
+
+</main>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="javascript/cert.app.js"></script>
+    <script src="javascript/viewCert.app.js"></script>
+    <script src="javascript/addCert.app.js"></script>
+    <!--<script src="javascript/action.app.js"></script>-->
+    <script src="javascript/certDetail.app.js"></script>
+    <script src="javascript/jquery-3.2.1.min.js"></script>
+    <script src="javascript/popper.min.js"></script>
+    <script src="javascript/bootstrap.min.js"></script>
+    <script src="javascript/main.js"></script>
+
+
+  </body>
+</html>

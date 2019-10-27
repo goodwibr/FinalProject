@@ -35,6 +35,7 @@ var memberRecordsApp = new Vue({
         body: JSON.stringify({"memberId":mId}),
         headers: {
           "Content-Type": "application/json; charset=utf-8"
+
         }
       })
 

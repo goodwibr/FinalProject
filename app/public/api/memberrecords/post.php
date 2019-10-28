@@ -12,7 +12,7 @@ $db = DbConnection::getConnection();
 //$guid=([$_GET['guid']]);
 $stmt = $db->prepare(
   'UPDATE Member
-  SET firstName=?, lastName=?, address=?, email=?, phoneNum=?, dob=?, radioNumber=?, departmentPosition=?, startDate=?
+  SET firstName=?, lastName=?, address=?, email=?, phoneNum=?, dob=?, radioNumber=?, departmentPosition=?, startDate=?, isActive=?
   where memberId=?');
 
 //}else {
@@ -32,6 +32,7 @@ $stmt->execute([
   $_POST['radioNumber'],
   $_POST['departmentPosition'],
   $_POST['startDate'],
+  $_POST['isActive'],
   $_POST['memberId']
 ]);
 

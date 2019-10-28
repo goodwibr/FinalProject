@@ -42,8 +42,8 @@ and edited to fit our project-->
         </li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Expired Certificates</a></li>
-            <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Member Report</a></li>
+            <li><a class="treeview-item" href="certificate-report.html"><i class="icon fa fa-circle-o"></i>Reports</a></li>
+
           </ul>
         </li>
       </ul>
@@ -94,6 +94,8 @@ and edited to fit our project-->
           </div>
         </div>
       </div>
+      </div>
+      <div class="row">
       <div id="memberReportApp">
          <div class="col-md-12" >
            <div class="tile">
@@ -104,9 +106,9 @@ and edited to fit our project-->
                  <thead>
                      <tr>
                        <th>Member</th>
-                       <th>Certificate Name</th>
-                       <th>Agency</th>
-                       <th>Expiration Period</th>
+                       <th>Member ID</th>
+                       <th>Radio</th>
+                       <th>Phone Number</th>
                        <th>Status</th>
                        <th>Email</th>
                      </tr>
@@ -114,10 +116,10 @@ and edited to fit our project-->
                    <tbody>
                      <tr v-for="r in reports">
                        <td>{{r.firstName}} {{r.lastName}}</td>
-                       <td>{{r.certName}}</td>
-                       <td>{{r.certAgency}}</td>
+                       <td>{{r.memberId}}</td>
+                       <td>{{r.radioNumber}}</td>
 
-                       <td>{{r.certExpirationPeriod}}</td>
+                       <td>{{r.phoneNum}}</td>
                        <td>{{r.isExpired}}</td>
                        <td>{{r.email}}</td>
                      </tr>

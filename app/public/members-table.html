@@ -42,7 +42,7 @@ and edited to fit our project-->
         </li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Expired Certificates</a></li>
+            <li><a class="treeview-item" href="certificate-report.html"><i class="icon fa fa-circle-o"></i> Expired Certificates</a></li>
             <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Member Report</a></li>
           </ul>
         </li>
@@ -194,6 +194,12 @@ and edited to fit our project-->
                   </div>
                 </div>
                 <div class="form-group row">
+                  <label class="control-label col-md-3">Status</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" placeholder="Enter member status" v-model="recordMember.isActive">
+                  </div>
+                </div>
+                <div class="form-group row">
                   <div class="col-md-8">
                     <button type="submit" class="btn btn-primary">Add</button>  <button class="btn btn-secondary" type="button" @click="closeAddForm()">Cancel</button>
                   </div>
@@ -263,6 +269,12 @@ and edited to fit our project-->
                 <label class="control-label col-md-3">Date of Birth</label>
                 <div class="col-md-8">
                   <input class="form-control" type="date" placeholder="Enter date of birth" v-model="member.dob">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-md-3">Status</label>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" placeholder="Enter member status" v-model="member.isActive">
                 </div>
               </div>
               <div class="form-group row">

@@ -62,7 +62,8 @@ var memberRecordsApp = new Vue({
         email: '',
         address: '',
         startDate:'',
-        dob: ''
+        dob: '',
+        isActive:''
       }
       /*this.member = {
         firstName: '',
